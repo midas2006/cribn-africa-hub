@@ -50,42 +50,43 @@ const Index = () => {
     label: 'User Rating'
   }];
   return <Layout>
-      <div className="bg-white">
+      <div className="bg-background min-h-screen">
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-cribn-blue to-blue-600">
-          <div className="absolute inset-0 bg-black opacity-10"></div>
+        <section className="relative overflow-hidden bg-gradient-to-br from-background to-card border-b border-border">
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
             <div className="text-center">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 animate-fade-in">
-                Your Campus Life,
-                <span className="block text-yellow-300">Simplified</span>
+              <h1 className="text-4xl sm:text-5xl font-semibold text-foreground mb-6 tracking-tight">
+                Professional Student
+                <span className="block text-accent">Platform</span>
               </h1>
-              <p className="text-xl sm:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto animate-fade-in">
-                The ultimate super-app for African students. From notes to accommodation, 
-                food to events - everything you need in one place.
+              <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+                Streamlined tools and services designed for modern student 
+                productivity and academic excellence worldwide.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
                 <Link to="/dashboard">
-                  <Button size="lg" className="bg-white text-cribn-blue hover:bg-gray-100 px-8 py-4 text-lg font-semibold">
-                    Get Started Free
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                  <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 px-6 py-3 font-medium">
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-                
+                <Button variant="outline" size="lg" className="px-6 py-3 font-medium">
+                  Learn More
+                </Button>
               </div>
             </div>
           </div>
         </section>
 
         {/* Stats Section */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-muted/20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              {stats.map((stat, index) => <div key={index} className="animate-fade-in">
-                  <div className="text-3xl sm:text-4xl font-bold text-cribn-blue mb-2">
+              {stats.map((stat, index) => <div key={index}>
+                  <div className="text-2xl sm:text-3xl font-semibold text-accent mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-gray-600 font-medium">
+                  <div className="text-muted-foreground font-medium">
                     {stat.label}
                   </div>
                 </div>)}
@@ -94,30 +95,29 @@ const Index = () => {
         </section>
 
         {/* Features Section */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-                Everything You Need for Campus Life
+              <h2 className="text-3xl font-semibold text-foreground mb-4">
+                Core Features
               </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Streamline your student experience with our comprehensive suite of tools 
-                designed specifically for African students.
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Comprehensive tools for modern student productivity and academic success.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((feature, index) => {
               const Icon = feature.icon;
-              return <Card key={index} className="hover:shadow-lg transition-shadow duration-300 border-0 shadow-md">
+              return <Card key={index} className="hover:border-accent/50 transition-colors border-border bg-card">
                     <CardContent className="p-6">
-                      <div className={`w-12 h-12 rounded-lg ${feature.color} flex items-center justify-center mb-4`}>
-                        <Icon className="h-6 w-6" />
+                      <div className="w-10 h-10 rounded-md bg-accent/10 flex items-center justify-center mb-4">
+                        <Icon className="h-5 w-5 text-accent" />
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      <h3 className="text-lg font-medium text-card-foreground mb-2">
                         {feature.title}
                       </h3>
-                      <p className="text-gray-600">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
                         {feature.description}
                       </p>
                     </CardContent>
@@ -128,45 +128,44 @@ const Index = () => {
         </section>
 
         {/* Verification Section */}
-        <section className="py-20 bg-gradient-to-r from-green-50 to-blue-50">
+        <section className="py-20 bg-muted/20 border-t border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <Shield className="h-16 w-16 text-green-500 mx-auto mb-4" />
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-                Verified Student Community
+              <Shield className="h-12 w-12 text-accent mx-auto mb-4" />
+              <h2 className="text-3xl font-semibold text-foreground mb-4">
+                Verified Community
               </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Join thousands of verified students across Africa. Build your Cribn Score 
-                and unlock exclusive features and discounts.
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Build trust through verification and unlock enhanced features with our scoring system.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 text-center">
-              <div className="bg-white p-8 rounded-xl shadow-md">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-8 w-8 text-cribn-blue" />
+            <div className="grid md:grid-cols-3 gap-6 text-center">
+              <div className="bg-card p-6 rounded-lg border border-border">
+                <div className="w-12 h-12 bg-accent/10 rounded-md flex items-center justify-center mx-auto mb-4">
+                  <Users className="h-6 w-6 text-accent" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Student Verification</h3>
-                <p className="text-gray-600">Upload your student ID and join the verified community</p>
-                <div className="mt-4 text-2xl font-bold text-green-500">+400 Score</div>
+                <h3 className="text-lg font-medium mb-2 text-card-foreground">Student Verification</h3>
+                <p className="text-sm text-muted-foreground mb-3">Upload student ID to join verified community</p>
+                <div className="text-lg font-semibold text-accent">+400 Score</div>
               </div>
 
-              <div className="bg-white p-8 rounded-xl shadow-md">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-8 w-8 text-green-500" />
+              <div className="bg-card p-6 rounded-lg border border-border">
+                <div className="w-12 h-12 bg-accent/10 rounded-md flex items-center justify-center mx-auto mb-4">
+                  <Shield className="h-6 w-6 text-accent" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">National ID Verification</h3>
-                <p className="text-gray-600">Verify your national identity for enhanced security</p>
-                <div className="mt-4 text-2xl font-bold text-green-500">+500 Score</div>
+                <h3 className="text-lg font-medium mb-2 text-card-foreground">National ID Verification</h3>
+                <p className="text-sm text-muted-foreground mb-3">Verify identity for enhanced security</p>
+                <div className="text-lg font-semibold text-accent">+500 Score</div>
               </div>
 
-              <div className="bg-white p-8 rounded-xl shadow-md">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Zap className="h-8 w-8 text-purple-500" />
+              <div className="bg-card p-6 rounded-lg border border-border">
+                <div className="w-12 h-12 bg-accent/10 rounded-md flex items-center justify-center mx-auto mb-4">
+                  <Zap className="h-6 w-6 text-accent" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Runner Verification</h3>
-                <p className="text-gray-600">Become a verified runner and earn money helping others</p>
-                <div className="mt-4 text-2xl font-bold text-purple-500">+25 Runner Score</div>
+                <h3 className="text-lg font-medium mb-2 text-card-foreground">Runner Verification</h3>
+                <p className="text-sm text-muted-foreground mb-3">Become verified runner and earn income</p>
+                <div className="text-lg font-semibold text-accent">+25 Runner Score</div>
               </div>
             </div>
           </div>
