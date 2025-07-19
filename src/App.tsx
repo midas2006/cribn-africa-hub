@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Notes from "./pages/Notes";
 import Hostels from "./pages/Hostels";
+import Food from "./pages/Food";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
