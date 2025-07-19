@@ -10,12 +10,16 @@ import CreateNoteDialog from '../components/CreateNoteDialog';
 
 const Notes = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [department, setDepartment] = useState('');
+  const [department, setDepartment] = useState('all');
   const [course, setCourse] = useState('');
   const [sortBy, setSortBy] = useState('newest');
   const [showCreateDialog, setShowCreateDialog] = useState(false);
 
-  const { data: notes, isLoading, error } = useNotes(searchTerm, department, course);
+  const { data: notes, isLoading, error } = useNotes(
+    searchTerm, 
+    department === 'all' ? '' : department, 
+    course
+  );
 
   const sortedNotes = notes ? [...notes].sort((a, b) => {
     switch (sortBy) {
@@ -66,7 +70,7 @@ const Notes = () => {
         {sortedNotes && sortedNotes.length === 0 && !isLoading && (
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <div className="text-muted-foreground mb-4">
-              {searchTerm || department || course 
+              {searchTerm || department !== 'all' || course 
                 ? 'No notes found matching your filters.' 
                 : 'No notes available yet.'}
             </div>
