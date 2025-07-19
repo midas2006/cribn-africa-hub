@@ -17,7 +17,6 @@ const Navigation = () => {
 
   const navigationItems = [
     { name: 'Home', path: '/', icon: Home },
-    { name: 'Dashboard', path: '/dashboard', icon: BookOpen },
     { name: 'Notes', path: '/notes', icon: BookOpen },
     { name: 'Hostels', path: '/hostels', icon: Building },
     { name: 'Food', path: '/food', icon: UtensilsCrossed },

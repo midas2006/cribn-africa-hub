@@ -14,7 +14,121 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      note_likes: {
+        Row: {
+          created_at: string
+          id: string
+          note_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          note_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          note_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "note_likes_note_id_fkey"
+            columns: ["note_id"]
+            isOneToOne: false
+            referencedRelation: "notes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      note_points: {
+        Row: {
+          created_at: string
+          id: string
+          note_id: string
+          points: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          note_id: string
+          points: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          note_id?: string
+          points?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "note_points_note_id_fkey"
+            columns: ["note_id"]
+            isOneToOne: false
+            referencedRelation: "notes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notes: {
+        Row: {
+          caption: string | null
+          content: string | null
+          course_name: string
+          created_at: string
+          department: string
+          id: string
+          image_url: string | null
+          likes_count: number | null
+          pdf_url: string | null
+          points_count: number | null
+          semester: string
+          title: string
+          topic: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          caption?: string | null
+          content?: string | null
+          course_name: string
+          created_at?: string
+          department: string
+          id?: string
+          image_url?: string | null
+          likes_count?: number | null
+          pdf_url?: string | null
+          points_count?: number | null
+          semester: string
+          title: string
+          topic: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          caption?: string | null
+          content?: string | null
+          course_name?: string
+          created_at?: string
+          department?: string
+          id?: string
+          image_url?: string | null
+          likes_count?: number | null
+          pdf_url?: string | null
+          points_count?: number | null
+          semester?: string
+          title?: string
+          topic?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
