@@ -116,12 +116,30 @@ export const useCreateHostel = () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('User not authenticated');
 
+      // Convert the data to match the database expected types
+      const insertData = {
+        name: hostelData.name,
+        description: hostelData.description,
+        location_address: hostelData.location_address,
+        latitude: hostelData.latitude,
+        longitude: hostelData.longitude,
+        price_min: hostelData.price_min,
+        price_max: hostelData.price_max,
+        total_rooms: hostelData.total_rooms,
+        available_rooms: hostelData.available_rooms,
+        amenities: hostelData.amenities as any, // Cast to any to handle the enum type
+        status: hostelData.status as any,
+        is_verified: hostelData.is_verified,
+        contact_whatsapp: hostelData.contact_whatsapp,
+        contact_phone: hostelData.contact_phone,
+        preferred_contact: hostelData.preferred_contact as any,
+        payment_verified: hostelData.payment_verified,
+        user_id: user.id,
+      };
+
       const { data, error } = await supabase
         .from('hostels')
-        .insert({
-          ...hostelData,
-          user_id: user.id,
-        })
+        .insert(insertData)
         .select()
         .single();
 
