@@ -14,6 +14,198 @@ export type Database = {
   }
   public: {
     Tables: {
+      hostel_media: {
+        Row: {
+          created_at: string | null
+          display_order: number | null
+          hostel_id: string
+          id: string
+          media_type: string
+          media_url: string
+        }
+        Insert: {
+          created_at?: string | null
+          display_order?: number | null
+          hostel_id: string
+          id?: string
+          media_type: string
+          media_url: string
+        }
+        Update: {
+          created_at?: string | null
+          display_order?: number | null
+          hostel_id?: string
+          id?: string
+          media_type?: string
+          media_url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "hostel_media_hostel_id_fkey"
+            columns: ["hostel_id"]
+            isOneToOne: false
+            referencedRelation: "hostels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      hostel_payments: {
+        Row: {
+          amount: number
+          created_at: string | null
+          currency: string | null
+          hostel_id: string | null
+          id: string
+          payment_status: string | null
+          stripe_session_id: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          currency?: string | null
+          hostel_id?: string | null
+          id?: string
+          payment_status?: string | null
+          stripe_session_id?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          currency?: string | null
+          hostel_id?: string | null
+          id?: string
+          payment_status?: string | null
+          stripe_session_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "hostel_payments_hostel_id_fkey"
+            columns: ["hostel_id"]
+            isOneToOne: false
+            referencedRelation: "hostels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      hostel_reports: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          hostel_id: string
+          id: string
+          reason: string
+          reporter_user_id: string
+          status: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          hostel_id: string
+          id?: string
+          reason: string
+          reporter_user_id: string
+          status?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          hostel_id?: string
+          id?: string
+          reason?: string
+          reporter_user_id?: string
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "hostel_reports_hostel_id_fkey"
+            columns: ["hostel_id"]
+            isOneToOne: false
+            referencedRelation: "hostels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      hostels: {
+        Row: {
+          amenities: Database["public"]["Enums"]["hostel_amenity"][] | null
+          available_rooms: number
+          contact_phone: string | null
+          contact_whatsapp: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          is_verified: boolean | null
+          latitude: number | null
+          location_address: string
+          longitude: number | null
+          name: string
+          payment_verified: boolean | null
+          preferred_contact:
+            | Database["public"]["Enums"]["contact_method"]
+            | null
+          price_max: number
+          price_min: number
+          status: Database["public"]["Enums"]["hostel_status"] | null
+          stripe_payment_intent_id: string | null
+          total_rooms: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          amenities?: Database["public"]["Enums"]["hostel_amenity"][] | null
+          available_rooms?: number
+          contact_phone?: string | null
+          contact_whatsapp?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_verified?: boolean | null
+          latitude?: number | null
+          location_address: string
+          longitude?: number | null
+          name: string
+          payment_verified?: boolean | null
+          preferred_contact?:
+            | Database["public"]["Enums"]["contact_method"]
+            | null
+          price_max: number
+          price_min: number
+          status?: Database["public"]["Enums"]["hostel_status"] | null
+          stripe_payment_intent_id?: string | null
+          total_rooms?: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          amenities?: Database["public"]["Enums"]["hostel_amenity"][] | null
+          available_rooms?: number
+          contact_phone?: string | null
+          contact_whatsapp?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_verified?: boolean | null
+          latitude?: number | null
+          location_address?: string
+          longitude?: number | null
+          name?: string
+          payment_verified?: boolean | null
+          preferred_contact?:
+            | Database["public"]["Enums"]["contact_method"]
+            | null
+          price_max?: number
+          price_min?: number
+          status?: Database["public"]["Enums"]["hostel_status"] | null
+          stripe_payment_intent_id?: string | null
+          total_rooms?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       note_likes: {
         Row: {
           created_at: string
@@ -137,7 +329,24 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      contact_method: "whatsapp" | "phone" | "in_app"
+      hostel_amenity:
+        | "wifi"
+        | "ac"
+        | "parking"
+        | "kitchen"
+        | "laundry"
+        | "security"
+        | "gym"
+        | "study_room"
+        | "common_area"
+        | "backup_power"
+      hostel_status:
+        | "pending"
+        | "active"
+        | "reported"
+        | "suspended"
+        | "verified"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -264,6 +473,21 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      contact_method: ["whatsapp", "phone", "in_app"],
+      hostel_amenity: [
+        "wifi",
+        "ac",
+        "parking",
+        "kitchen",
+        "laundry",
+        "security",
+        "gym",
+        "study_room",
+        "common_area",
+        "backup_power",
+      ],
+      hostel_status: ["pending", "active", "reported", "suspended", "verified"],
+    },
   },
 } as const
