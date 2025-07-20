@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,12 +13,14 @@ import Parties from "./pages/Parties";
 import Wallet from "./pages/Wallet";
 import NotFound from "./pages/NotFound";
 
-// Apply dark theme immediately
-document.documentElement.classList.add('dark');
-
 const queryClient = new QueryClient();
 
 function App() {
+  useEffect(() => {
+    // Apply dark theme after component mounts
+    document.documentElement.classList.add('dark');
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
