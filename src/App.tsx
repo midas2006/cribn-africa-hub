@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Notes from "./pages/Notes";
 import Hostels from "./pages/Hostels";
 import Food from "./pages/Food";
+import Parties from "./pages/Parties";
 import NotFound from "./pages/NotFound";
 
 // Apply dark theme immediately
@@ -28,7 +29,7 @@ function App() {
             <Route path="/notes" element={<Notes />} />
             <Route path="/hostels" element={<Hostels />} />
             <Route path="/food" element={<Food />} />
-            <Route path="/events" element={<div className="min-h-screen flex items-center justify-center bg-background"><h1 className="text-2xl text-foreground">Events - Coming Soon</h1></div>} />
+            <Route path="/events" element={<Parties />} />
             <Route path="/errands" element={<div className="min-h-screen flex items-center justify-center bg-background"><h1 className="text-2xl text-foreground">Errands - Coming Soon</h1></div>} />
             <Route path="/marketplace" element={<div className="min-h-screen flex items-center justify-center bg-background"><h1 className="text-2xl text-foreground">Marketplace - Coming Soon</h1></div>} />
             <Route path="/attendance" element={<div className="min-h-screen flex items-center justify-center bg-background"><h1 className="text-2xl text-foreground">Attendance - Coming Soon</h1></div>} />

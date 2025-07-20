@@ -14,6 +14,202 @@ export type Database = {
   }
   public: {
     Tables: {
+      event_organizers: {
+        Row: {
+          business_name: string
+          contact_email: string
+          contact_phone: string | null
+          created_at: string | null
+          id: string
+          updated_at: string | null
+          user_id: string
+          verification_status:
+            | Database["public"]["Enums"]["organizer_status"]
+            | null
+        }
+        Insert: {
+          business_name: string
+          contact_email: string
+          contact_phone?: string | null
+          created_at?: string | null
+          id?: string
+          updated_at?: string | null
+          user_id: string
+          verification_status?:
+            | Database["public"]["Enums"]["organizer_status"]
+            | null
+        }
+        Update: {
+          business_name?: string
+          contact_email?: string
+          contact_phone?: string | null
+          created_at?: string | null
+          id?: string
+          updated_at?: string | null
+          user_id?: string
+          verification_status?:
+            | Database["public"]["Enums"]["organizer_status"]
+            | null
+        }
+        Relationships: []
+      }
+      event_payments: {
+        Row: {
+          commission_amount: number
+          created_at: string | null
+          gross_amount: number
+          id: string
+          net_amount: number
+          organizer_id: string
+          payment_status: string | null
+          stripe_session_id: string | null
+          ticket_id: string
+        }
+        Insert: {
+          commission_amount: number
+          created_at?: string | null
+          gross_amount: number
+          id?: string
+          net_amount: number
+          organizer_id: string
+          payment_status?: string | null
+          stripe_session_id?: string | null
+          ticket_id: string
+        }
+        Update: {
+          commission_amount?: number
+          created_at?: string | null
+          gross_amount?: number
+          id?: string
+          net_amount?: number
+          organizer_id?: string
+          payment_status?: string | null
+          stripe_session_id?: string | null
+          ticket_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_payments_organizer_id_fkey"
+            columns: ["organizer_id"]
+            isOneToOne: false
+            referencedRelation: "event_organizers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "event_payments_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "event_tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      event_tickets: {
+        Row: {
+          created_at: string | null
+          event_id: string
+          id: string
+          is_used: boolean | null
+          purchase_price: number
+          stripe_payment_intent_id: string | null
+          ticket_code: string
+          used_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          event_id: string
+          id?: string
+          is_used?: boolean | null
+          purchase_price: number
+          stripe_payment_intent_id?: string | null
+          ticket_code: string
+          used_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          event_id?: string
+          id?: string
+          is_used?: boolean | null
+          purchase_price?: number
+          stripe_payment_intent_id?: string | null
+          ticket_code?: string
+          used_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_tickets_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          commission_rate: number | null
+          created_at: string | null
+          description: string | null
+          dress_code: string | null
+          event_date: string
+          flyer_url: string | null
+          id: string
+          max_capacity: number | null
+          organizer_id: string
+          status: Database["public"]["Enums"]["event_status"] | null
+          ticket_price: number
+          title: string
+          updated_at: string | null
+          venue: string
+          video_url: string | null
+        }
+        Insert: {
+          commission_rate?: number | null
+          created_at?: string | null
+          description?: string | null
+          dress_code?: string | null
+          event_date: string
+          flyer_url?: string | null
+          id?: string
+          max_capacity?: number | null
+          organizer_id: string
+          status?: Database["public"]["Enums"]["event_status"] | null
+          ticket_price: number
+          title: string
+          updated_at?: string | null
+          venue: string
+          video_url?: string | null
+        }
+        Update: {
+          commission_rate?: number | null
+          created_at?: string | null
+          description?: string | null
+          dress_code?: string | null
+          event_date?: string
+          flyer_url?: string | null
+          id?: string
+          max_capacity?: number | null
+          organizer_id?: string
+          status?: Database["public"]["Enums"]["event_status"] | null
+          ticket_price?: number
+          title?: string
+          updated_at?: string | null
+          venue?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_organizer_id_fkey"
+            columns: ["organizer_id"]
+            isOneToOne: false
+            referencedRelation: "event_organizers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       hostel_media: {
         Row: {
           created_at: string | null
@@ -326,10 +522,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_ticket_code: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       contact_method: "whatsapp" | "phone" | "in_app"
+      event_status: "draft" | "published" | "cancelled" | "completed"
       hostel_amenity:
         | "wifi"
         | "ac"
@@ -347,6 +547,7 @@ export type Database = {
         | "reported"
         | "suspended"
         | "verified"
+      organizer_status: "pending" | "verified" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -475,6 +676,7 @@ export const Constants = {
   public: {
     Enums: {
       contact_method: ["whatsapp", "phone", "in_app"],
+      event_status: ["draft", "published", "cancelled", "completed"],
       hostel_amenity: [
         "wifi",
         "ac",
@@ -488,6 +690,7 @@ export const Constants = {
         "backup_power",
       ],
       hostel_status: ["pending", "active", "reported", "suspended", "verified"],
+      organizer_status: ["pending", "verified", "rejected"],
     },
   },
 } as const
