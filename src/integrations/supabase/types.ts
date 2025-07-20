@@ -517,11 +517,183 @@ export type Database = {
         }
         Relationships: []
       }
+      user_badges: {
+        Row: {
+          badge_description: string | null
+          badge_icon: string | null
+          badge_name: string
+          earned_at: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          badge_description?: string | null
+          badge_icon?: string | null
+          badge_name: string
+          earned_at?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          badge_description?: string | null
+          badge_icon?: string | null
+          badge_name?: string
+          earned_at?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_scores: {
+        Row: {
+          average_rating: number | null
+          completion_rate: number | null
+          created_at: string | null
+          cribn_score: number
+          errands_completed: number | null
+          events_attended: number | null
+          id: string
+          marketplace_listings: number | null
+          notes_uploaded: number | null
+          questions_answered: number | null
+          reviews_received: number | null
+          runner_score: number
+          total_earnings: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          average_rating?: number | null
+          completion_rate?: number | null
+          created_at?: string | null
+          cribn_score?: number
+          errands_completed?: number | null
+          events_attended?: number | null
+          id?: string
+          marketplace_listings?: number | null
+          notes_uploaded?: number | null
+          questions_answered?: number | null
+          reviews_received?: number | null
+          runner_score?: number
+          total_earnings?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          average_rating?: number | null
+          completion_rate?: number | null
+          created_at?: string | null
+          cribn_score?: number
+          errands_completed?: number | null
+          events_attended?: number | null
+          id?: string
+          marketplace_listings?: number | null
+          notes_uploaded?: number | null
+          questions_answered?: number | null
+          reviews_received?: number | null
+          runner_score?: number
+          total_earnings?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_wallets: {
+        Row: {
+          balance: number
+          created_at: string | null
+          currency: string
+          id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string | null
+          currency?: string
+          id?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string | null
+          currency?: string
+          id?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wallet_transactions: {
+        Row: {
+          amount: number
+          created_at: string | null
+          description: string | null
+          id: string
+          metadata: Json | null
+          payment_method: Database["public"]["Enums"]["payment_method"] | null
+          paystack_reference: string | null
+          paystack_transaction_id: string | null
+          status: Database["public"]["Enums"]["transaction_status"] | null
+          type: Database["public"]["Enums"]["transaction_type"]
+          updated_at: string | null
+          user_id: string
+          wallet_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          payment_method?: Database["public"]["Enums"]["payment_method"] | null
+          paystack_reference?: string | null
+          paystack_transaction_id?: string | null
+          status?: Database["public"]["Enums"]["transaction_status"] | null
+          type: Database["public"]["Enums"]["transaction_type"]
+          updated_at?: string | null
+          user_id: string
+          wallet_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          payment_method?: Database["public"]["Enums"]["payment_method"] | null
+          paystack_reference?: string | null
+          paystack_transaction_id?: string | null
+          status?: Database["public"]["Enums"]["transaction_status"] | null
+          type?: Database["public"]["Enums"]["transaction_type"]
+          updated_at?: string | null
+          user_id?: string
+          wallet_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_transactions_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "user_wallets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      calculate_cribn_score: {
+        Args: { user_uuid: string }
+        Returns: number
+      }
+      calculate_runner_score: {
+        Args: { user_uuid: string }
+        Returns: number
+      }
       generate_ticket_code: {
         Args: Record<PropertyKey, never>
         Returns: string
@@ -548,6 +720,19 @@ export type Database = {
         | "suspended"
         | "verified"
       organizer_status: "pending" | "verified" | "rejected"
+      payment_method:
+        | "mtn_momo"
+        | "vodafone_cash"
+        | "airteltigo_money"
+        | "bank_card"
+        | "bank_transfer"
+      transaction_status: "pending" | "completed" | "failed" | "cancelled"
+      transaction_type:
+        | "top_up"
+        | "withdrawal"
+        | "spending"
+        | "earning"
+        | "refund"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -691,6 +876,21 @@ export const Constants = {
       ],
       hostel_status: ["pending", "active", "reported", "suspended", "verified"],
       organizer_status: ["pending", "verified", "rejected"],
+      payment_method: [
+        "mtn_momo",
+        "vodafone_cash",
+        "airteltigo_money",
+        "bank_card",
+        "bank_transfer",
+      ],
+      transaction_status: ["pending", "completed", "failed", "cancelled"],
+      transaction_type: [
+        "top_up",
+        "withdrawal",
+        "spending",
+        "earning",
+        "refund",
+      ],
     },
   },
 } as const
